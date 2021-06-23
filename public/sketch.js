@@ -6,48 +6,63 @@ let next;
 let mainColor = 255;
 let accentColor = 0;
 
-//let body = document.getElementsByTagName('body')[0];
+// let body = document.getElementsByTagName('body')[0];
 // body.style.backgroundColor = `"${toString(accentColor)}"`;
 
-let createBoard = (columns, rows) => { 
+let createBoard = (columns, rows) => {
     let board = new Array(columns);
 
-    for(let i = 0; i < columns; i++) {
-      board[i] = new Array(rows);
+    for (let i = 0; i < columns; i++) {
+        board[i] = new Array(rows);
     }
 
     return board;
 }
 
 function setup() {
-  createCanvas(300, 300);
-  
-  cellSize = 25;
-  columns = floor(width / cellSize);
-  rows = floor(width / cellSize);
+    createCanvas(300, 300);
 
-  board = createBoard(columns, rows);
-  next = createBoard(columns, rows);
-  init();
+    cellSize = 25;
+    columns = floor(width / cellSize);
+    rows = floor(width / cellSize);
+
+    board = createBoard(columns, rows);
+    next = createBoard(columns, rows);
+    init();
 }
 
 function draw() {
-  background(accentColor);
-  stroke(mainColor);
-  fill(accentColor);
-  
-  for(let i = 0; i < columns; i++) {
-    for(let j = 0; j < rows; j++) {
-      board[i][j] == 1 ? fill(mainColor) : fill(accentColor);
-      rect(i * cellSize, j * cellSize, cellSize, cellSize);
+    background(accentColor);
+    stroke(mainColor);
+    fill(accentColor);
+
+    for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+            board[i][j] == 1 ? fill(mainColor) : fill(accentColor);
+            rect(i * cellSize, j * cellSize, cellSize, cellSize);
+        }
     }
-  }
 }
 
 function init() {
-  for(let i = 0; i < columns; i++) {
-    for(let j = 0; j < rows; j++) {
-      board[i][j] = 0;
+    for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+            board[i][j] = 0;
+        }
     }
-  }
+}
+
+function mouseClicked() {
+    //input: (mouseX: 90, mouseY: 90)
+    let cellClicked = {
+        column: floor(mouseX / cellSize),
+        row: floor(mouseY / cellSize)
+    }
+    
+    if (cellClicked.column >= 0 && cellClicked.column < columns
+        && cellClicked.row >= 0 && cellClicked.row < rows) {
+        // console.log(cellClicked.column, cellClicked.row);
+        board[cellClicked.column][cellClicked.row] = 1 - board[cellClicked.column][cellClicked.row];
+    }
+
 }
