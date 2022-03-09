@@ -1,3 +1,17 @@
+var SPEED = 1;
+var IS_STOPPED = true;
+
+var playBtn = document.querySelector('#play-btn');
+let speedBtn = document.getElementById('speed-btn');
+
+playBtn.addEventListener('click', () => {
+    console.log(IS_STOPPED ? 'The game is stopped' : 'The game is playing');
+});
+
+speedBtn.addEventListener('click', () => {
+    console.log(`The actual speed of the game is ${SPEED}`);
+});
+
 let cellSize;
 let columns;
 let rows;
@@ -20,7 +34,8 @@ let createBoard = (columns, rows) => {
 }
 
 function setup() {
-    createCanvas(300, 300);
+    let myCanvas = createCanvas(300, 300);
+    myCanvas.parent('canvas');
 
     cellSize = 25;
     columns = floor(width / cellSize);
